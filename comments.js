@@ -1,7 +1,19 @@
-// create web server
-var express = require('express');
-var app = express();
+//Create web server
+const express = require('express');
+const bodyParser = require('body-parser');
+const app = express();
+const port = 3000;
 
-// create application/x-www-form-urlencoded parser
-var bodyParser = require('body-parser');
-var urlencodedParser = bodyParser.urlencoded({ extended: false })
+//Create database
+const Datastore = require('nedb');
+const database = new Datastore('database.db');
+database.loadDatabase();
+
+//Serve static files
+app.use(express.static('public'));
+app.use(bodyParser.json());
+
+//Listen to port 3000
+app.listen(port, () => {
+    console.log(`Server listening at http://localhost:${port}`);
+});
